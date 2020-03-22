@@ -4,6 +4,8 @@ const urlParams = new URLSearchParams(queryString);
 let loc = urlParams.get('loc')
 let country = ""
 let region = ""
+let last_day = 0
+let confirmed_cases = 0
 
 if (loc == null)
     country = "US"
@@ -11,8 +13,6 @@ else {
     if (loc.includes("|")){
         country = loc.split('|')[0].trim()
         region = loc.split('|')[1].trim()
-        console.log(country)
-        console.log(region)
     }
     else
         country = loc
@@ -39,9 +39,6 @@ const csvdata = Papa.parse(url, {
         list_of_places.push(data[i][1])
       
     }
-
-
-    console.log(list_of_places)
     
     var ctx = document.getElementById('canvas').getContext('2d');
     let ts = new Array;
@@ -61,8 +58,14 @@ const csvdata = Papa.parse(url, {
       }
       
     }
+    
     leading_zeros = ts.filter(x => x<100).length
     ts = ts.slice(leading_zeros,ts.length)
+    
+    last_day = ts[ts.length-1] - ts[ts.length-2]
+    confirmed_cases = ts[ts.length-1]
+
+    
     labels = data[0].slice(4+leading_zeros,data[0].length)
 
 
@@ -111,20 +114,14 @@ const csvdata = Papa.parse(url, {
       }
     });
 
-   
-    // console.log(mychart)
-    // mychart.update.datasets.data.push(ts);
-    // mychart.data.labels.push("test");
-    // mychart.update();        
-
     
 } // complete
 
 });
 
-array_list_of_places = Array.from(list_of_places)
-console.log(array_list_of_places)
-console.log(Array.from(list_of_places))
+$('confirmed_cases').innerHTML = confirmed_cases.toString;
+$('last_day').innerHTML = last_day.toString;
+
 $( function() {
     $( "#loc" ).autocomplete({
       source: list_of_places,
