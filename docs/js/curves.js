@@ -74,10 +74,9 @@ const csvdata = Papa.parse(url, {
       }
       
     }
-    console.log(ts)
-    leading_zeros = ts.filter(x => x>0).length
+
+    leading_zeros = ts.filter(x => x=0).length
     ts = ts.slice(leading_zeros,ts.length)
-    console.log(ts)
     last_day = ts[ts.length-1] - ts[ts.length-2]
     document.getElementById("last_day").innerHTML = last_day
     confirmed_cases = ts[ts.length-1]
