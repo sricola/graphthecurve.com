@@ -25,7 +25,7 @@ else {
           country = "US"
 }
 
-document.getElementById("header-title").innerHTML = "Graph The Curve<br />" + loc.toString()
+document.getElementById("header-title").innerHTML = "COVID-19: Graph The Curve<br />" + loc.toString()
 
 const url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
 
