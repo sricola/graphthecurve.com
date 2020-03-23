@@ -56,7 +56,9 @@ const csvdata = Papa.parse(url, {
     
     
     list_of_places.push("United States of America")
-    var ctx = document.getElementById('canvas').getContext('2d');
+    var ctx = document.getElementById('canvas_ts').getContext('2d');
+    var cty = document.getElementById('canvas_new_cases').getContext('2d');
+
     let ts = new Array;
     for (i=0; i<data.length; i++){
       if (data[i][1] == country){
@@ -86,7 +88,7 @@ const csvdata = Papa.parse(url, {
     labels = data[0].slice(4+leading_zeros,data[0].length)
 
 
-    var mychart = new Chart(ctx, {
+    var chart_ts = new Chart(ctx, {
       type: 'line',
       data: {
         labels: labels,
@@ -129,6 +131,63 @@ const csvdata = Papa.parse(url, {
               }
             },
             type: 'logarithmic',
+          }]
+        }
+      }
+    });
+
+    console.log(ts[ts.length-1]-ts[ts.length-2])
+    var chart_new_cases = new Chart(cty, {
+      type: 'bar',
+      data: {
+        labels: labels.slice((labels.length-7),labels.length),
+        
+        datasets: [{
+          label: "New Cases Per Day",
+          backgroundColor: "#cc0000",
+          pointRadius: 5,
+          fill: true,
+          data: [
+          ts[ts.length-7]-ts[ts.length-8],
+          ts[ts.length-6]-ts[ts.length-7],
+          ts[ts.length-5]-ts[ts.length-6],
+          ts[ts.length-4]-ts[ts.length-5],
+          ts[ts.length-3]-ts[ts.length-4],
+          ts[ts.length-2]-ts[ts.length-3],
+          ts[ts.length-1]-ts[ts.length-2]
+                ],
+        }],
+      },
+      options: {
+		  
+		  legend: {
+		              display: false
+		           },
+        responsive: true,
+        
+        scales: {
+          xAxes: [{
+            display: true,
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+
+          }],
+          yAxes: [{
+            display: true,
+            legend: {
+              position: 'bottom'
+            },
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            },
+            ticks: {
+              min: 0, //minimum tick
+              callback: function (value, index, values) {
+                return Number(value.toString());
+              }
+            },
+            type: 'linear',
           }]
         }
       }
