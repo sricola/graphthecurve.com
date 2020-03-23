@@ -25,7 +25,8 @@ else {
           country = "US"
 }
 
-document.getElementById("header-title").innerHTML = "COVID-19: Graph The Curve<br />" + loc.toString()
+document.getElementById("header-title").innerHTML = "COVID-19: Graph The Curve - " + loc.toString()
+document.getElementById("loc-region").innerHTML = loc.toString()
 
 const url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
 
@@ -97,6 +98,10 @@ const csvdata = Papa.parse(url, {
         }],
       },
       options: {
+		  
+		  legend: {
+		              display: false
+		           },
         responsive: true,
         
         scales: {

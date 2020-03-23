@@ -1,9 +1,9 @@
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!-- Primary Meta Tags -->
 <title>COVID-19: Graph The Curve</title>
 <meta name="title" content="COVID-19: Graph The Curve">
 <meta name="description" content="COVID-19: Graph The Curve for your country / region or state.">
@@ -61,58 +61,59 @@ canvas {
   -ms-user-select: none;
 }
 </style>
+</head>
 
-  </head>
+  <body style="background-color: rgb(0, 0, 0); color: rgb(247, 255, 252);">
 
-  <body>
-
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#"><div id="header-title">Graph The COVID-19 Curve</div></a>
-    </nav>
-
-    <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="container-fluid">
+      <div class="header clearfix">
+        <h1 class="text" style="text-decoration-color: rgb(245, 247, 255); color: rgb(247, 255, 253); text-decoration-line: none;">
+          <div id="header-title">
+          Graph The COVID-19 Curve
+          </div>
+        </h1>
+      </div>
+      <br />
+      <div class="form-group">
+        <form id="form" action=".">
+        <input id="loc" name="loc" type="text" class="form-control" placeholder="Search for Country / State / Region"></div>
+      </form>
       <div class="jumbotron">
-        <div class="container">
-			<br />
-	        <form class="my-auto mx-2 d-inline w-100" id="form">
-	          <input id="loc" name="loc" class="form-control mr-sm-2" type="text" placeholder="Search for Country / State / Region" width="90%">
-	        </form>
-		  <br />
-		  <br />
-		  <h3 id="loc-region">Hello World</h3>
-		  <canvas id="canvas"></canvas>
-        </div>
+          <canvas id="canvas"></canvas>
       </div>
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-6">
-            <h4>Confirmed Cases</h2>
-            <p id="confirmed_cases">0</p>
-          </div>
-          <div class="col-md-6">
-            <h4>Cases added in the Last Day</h2>
-            <p id="last_day">0</p>
-          </div>
+      <div class="row marketing">
+        <div class="col-lg-6" style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">
+          <h4>Confirmed Cases</h4>
+          <p id="confirmed_cases">0</p>
+
+          <!-- <h4>Last Day Change</h4>
+          <p><div id="last_day">0</div></p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
         </div>
 
-        <hr>
+        <div class="col-lg-6" style="background-color: rgb(255, 255, 0); color: rgb(0, 0, 0);">
+          <h4>Cases Added Since Previous Day</h4>
+          <p id="last_day">0</p>
 
-      </div> <!-- /container -->
+          <!-- <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
 
-    </main>
-
-    <footer class="container">
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
+        </div>
+      </div>
+      <br />
+      <footer class="footer">
         <p>made with ❤️in nyc by <a href="https://sricola.com/contact/">sricola</a>
            <br />
            data provided by <a href="https://github.com/CSSEGISandData/COVID-19"> JHU CSSE </a>
-    </footer>
+      </footer>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	    <script src="js/curves.js" type="text/javascript"></script>
-  </body>
+    </div> <!-- /container -->
+  
+    <script src="js/curves.js" type="text/javascript"></script>
+</body>
 </html>
