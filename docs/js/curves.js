@@ -21,7 +21,7 @@ else {
     }
     else
         country = loc
-        if (country = "United States of America")
+        if (country == "United States of America")
           country = "US"
 }
 
