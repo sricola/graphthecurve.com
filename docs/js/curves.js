@@ -94,7 +94,7 @@ const csvdata = Papa.parse(url, {
         labels: labels,
 
         datasets: [{
-          label: loc,
+          label: "Cases",
           backgroundColor: "#cc0000",
           pointBackgroundColor: "#FFFF00",
           pointRadius: 0,
