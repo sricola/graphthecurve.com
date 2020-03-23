@@ -74,7 +74,7 @@ const csvdata = Papa.parse(url, {
       }
       
     }
-    
+
     leading_zeros = ts.filter(x => x=0).length
     ts = ts.slice(leading_zeros,ts.length)
     last_day = ts[ts.length-1] - ts[ts.length-2]
