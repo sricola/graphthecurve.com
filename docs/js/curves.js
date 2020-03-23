@@ -143,7 +143,7 @@ const csvdata = Papa.parse(url, {
         labels: labels.slice((labels.length-7),labels.length),
         
         datasets: [{
-          label: "New Cases Per Day",
+          label: "New Cases",
           backgroundColor: "#cc0000",
           pointRadius: 5,
           fill: true,
