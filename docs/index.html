@@ -11,8 +11,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<script src="js/curves.js" type="text/javascript"></script>
-
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
@@ -42,12 +40,16 @@ canvas {
 
     <div class="container">
       <div class="header clearfix">
-        <h1 class="text-muted" style="text-decoration-color: rgb(245, 247, 255); color: rgb(247, 255, 253); text-decoration-line: none;">Graph The Curve</h1>
+        <h1 class="text" style="text-decoration-color: rgb(245, 247, 255); color: rgb(247, 255, 253); text-decoration-line: none;">
+          <div id="header-title">
+          Graph The Curve
+          </div>
+        </h1>
       </div>
 
       <div class="form-group">
         <form id="form" action=".">
-        <input id="loc" name="loc" type="text" class="form-control"></div>
+        <input id="loc" name="loc" type="text" class="form-control" placeholder="Search for Country/Region"></div>
       </form>
       <div class="jumbotron">
           <canvas id="canvas"></canvas>
@@ -58,22 +60,22 @@ canvas {
           <h4>Confirmed Cases</h4>
           <p id="confirmed_cases">0</p>
 
-          <h4>Last Day Change</h4>
+          <!-- <h4>Last Day Change</h4>
           <p><div id="last_day">0</div></p>
 
           <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
         </div>
 
         <div class="col-lg-6">
-          <h4>Last Day Change</h4>
-          <p><div id="last_day">0</div></p>
+          <h4>Previous Day</h4>
+          <p id="last_day">0</p>
 
-          <h4>Subheading</h4>
+          <!-- <h4>Subheading</h4>
           <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
 
           <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p> -->
         </div>
       </div>
 
@@ -83,6 +85,6 @@ canvas {
 
     </div> <!-- /container -->
   
-
+    <script src="js/curves.js" type="text/javascript"></script>
 </body>
 </html>

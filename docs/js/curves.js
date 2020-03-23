@@ -4,11 +4,14 @@ const urlParams = new URLSearchParams(queryString);
 let loc = urlParams.get('loc')
 let country = ""
 let region = ""
-let last_day = 0
-let confirmed_cases = 0
+let last_day
+let confirmed_cases
 
-if (loc == null)
+
+if (loc == null){
     country = "US"
+    loc = "US"
+}
 else {
     if (loc.includes("|")){
         country = loc.split('|')[0].trim()
@@ -18,9 +21,12 @@ else {
         country = loc
 }
 
+document.getElementById("header-title").innerHTML = "Graph The Curve - " + loc.toString()
+
 const url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
 
 list_of_places = new Array;
+filtered_list_of_places = new Array;
 let data;
 
 const csvdata = Papa.parse(url, {
@@ -32,7 +38,8 @@ const csvdata = Papa.parse(url, {
     for (i=1;i<data.length;i++){
       
       if (data[i][0] != null) {
-        list_of_places.push(data[i][1])
+        if (!list_of_places.includes(data[i][1]))
+          list_of_places.push(data[i][1])
         list_of_places.push(data[i][1] + " | " + data[i][0])
       }
       else
@@ -63,7 +70,9 @@ const csvdata = Papa.parse(url, {
     ts = ts.slice(leading_zeros,ts.length)
     
     last_day = ts[ts.length-1] - ts[ts.length-2]
+    document.getElementById("last_day").innerHTML = last_day
     confirmed_cases = ts[ts.length-1]
+    document.getElementById("confirmed_cases").innerHTML = confirmed_cases
 
     
     labels = data[0].slice(4+leading_zeros,data[0].length)
@@ -83,12 +92,8 @@ const csvdata = Papa.parse(url, {
         }],
       },
       options: {
-        annotateDisplay: true,
         responsive: true,
-        title: {
-          display: true,
-          text: country + "-" +region
-        },
+        
         scales: {
           xAxes: [{
             display: true,
@@ -99,6 +104,9 @@ const csvdata = Papa.parse(url, {
           }],
           yAxes: [{
             display: true,
+            legend: {
+              position: 'bottom'
+            },
             gridLines: {
                 color: "rgba(0, 0, 0, 0)",
             },
@@ -119,9 +127,7 @@ const csvdata = Papa.parse(url, {
 
 });
 
-$('confirmed_cases').innerHTML = confirmed_cases.toString;
-$('last_day').innerHTML = last_day.toString;
-
+console.log(list_of_places)
 $( function() {
     $( "#loc" ).autocomplete({
       source: list_of_places,
