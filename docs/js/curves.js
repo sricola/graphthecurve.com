@@ -23,6 +23,8 @@ else {
         country = loc
         if (country == "United States of America")
           country = "US"
+		if (country == "Taiwan")
+		  country = "Taiwan*"
 }
 
 document.getElementById("header-title").innerHTML = "COVID-19: Graph The Curve - " + loc.toString()
