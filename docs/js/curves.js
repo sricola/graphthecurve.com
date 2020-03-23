@@ -85,7 +85,7 @@ const csvdata = Papa.parse(url, {
         
         datasets: [{
           label: country + region,
-          backgroundColor: window.chartColors.red,
+          backgroundColor: "#FF0000",
           pointRadius: 5,
           fill: true,
           data: ts,
@@ -111,7 +111,7 @@ const csvdata = Papa.parse(url, {
                 color: "rgba(0, 0, 0, 0)",
             },
             ticks: {
-              min: 100, //minimum tick
+              min: 0, //minimum tick
               callback: function (value, index, values) {
                 return Number(value.toString());
               }
@@ -127,7 +127,6 @@ const csvdata = Papa.parse(url, {
 
 });
 
-console.log(list_of_places)
 $( function() {
     $( "#loc" ).autocomplete({
       source: list_of_places,
