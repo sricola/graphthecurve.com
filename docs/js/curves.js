@@ -42,7 +42,7 @@ const csvdata = Papa.parse(url, {
           list_of_places.push(data[i][1])
         list_of_places.push(data[i][1] + " | " + data[i][0])
       }
-      else
+      else if (data[i][1] != null || data[i][1] != "")
         list_of_places.push(data[i][1])
       
     }
