@@ -15,13 +15,17 @@ if (loc == null){
 else {
     if (loc.includes("|")){
         country = loc.split('|')[0].trim()
+        if (country == "United States of America")
+          country = "US"
         region = loc.split('|')[1].trim()
     }
     else
         country = loc
+        if (country = "United States of America")
+          country = "US"
 }
 
-document.getElementById("header-title").innerHTML = "Graph The COVID-19 Curve - " + loc.toString()
+document.getElementById("header-title").innerHTML = "Graph The Curve<br />" + loc.toString()
 
 const url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
 
@@ -47,6 +51,8 @@ const csvdata = Papa.parse(url, {
       
     }
     
+    
+    list_of_places.push("United States of America")
     var ctx = document.getElementById('canvas').getContext('2d');
     let ts = new Array;
     for (i=0; i<data.length; i++){
@@ -84,7 +90,7 @@ const csvdata = Papa.parse(url, {
         labels: labels,
         
         datasets: [{
-          label: country + region,
+          label: loc,
           backgroundColor: "#FF0000",
           pointRadius: 5,
           fill: true,
