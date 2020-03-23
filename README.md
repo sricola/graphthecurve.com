@@ -1,2 +1,2 @@
 # graphthecurve.com
-graphthecurve.com
+[graphthecurve.com]
