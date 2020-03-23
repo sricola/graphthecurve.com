@@ -136,7 +136,6 @@ const csvdata = Papa.parse(url, {
       }
     });
 
-    console.log(ts[ts.length-1]-ts[ts.length-2])
     var chart_new_cases = new Chart(cty, {
       type: 'bar',
       data: {
