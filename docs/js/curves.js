@@ -79,7 +79,11 @@ const csvdata = Papa.parse(url, {
       }
 
     }
-
+	
+	if (ts.length == 0){
+		window.location.replace("error.html");
+	}
+	
     leading_zeros = ts.filter(x => x = 0).length
     ts = ts.slice(leading_zeros, ts.length)
     last_day = ts[ts.length - 1] - ts[ts.length - 2]
@@ -202,7 +206,6 @@ const csvdata = Papa.parse(url, {
         }
       }
     });
-
 
   } // complete
 
