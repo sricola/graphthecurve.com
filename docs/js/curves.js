@@ -13,7 +13,12 @@ if (loc == null) {
   loc = "US"
 }
 else {
-  if (loc.includes("|")) {
+  if (loc == "US | New York"){
+    loc = "US"
+    country = "US"
+    region = ""
+  }
+  else if (loc.includes("|")) {
     country = loc.split('|')[0].trim()
     if (country == "United States of America")
       country = "US"
