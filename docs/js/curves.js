@@ -14,7 +14,7 @@ if (loc == null) {
 }
 else {
   if (loc == "US | New York"){
-    loc = "US"
+    loc = "United States of America"
     country = "US"
     region = ""
   }
