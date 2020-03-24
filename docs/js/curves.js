@@ -10,7 +10,7 @@ let confirmed_cases
 
 if (loc == null) {
   country = "US"
-  loc = "US"
+  loc = "United States of America"
 }
 else {
   if (loc == "US | New York"){
