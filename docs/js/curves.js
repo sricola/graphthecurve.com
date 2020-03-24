@@ -7,8 +7,7 @@ let region = ""
 let last_day
 let confirmed_cases
 
-
-if (loc == null) {
+if (loc == null || loc == "") {
   country = "US"
   loc = "United States of America"
 }
