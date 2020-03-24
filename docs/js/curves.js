@@ -212,6 +212,7 @@ const csvdata = Papa.parse(url, {
 $(function () {
   $("#loc").autocomplete({
     source: list_of_places,
+    autoFocus: true,
     select: function (event, ui) {
       $(this).val(ui.item.value);
       form.submit();
