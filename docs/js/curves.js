@@ -49,14 +49,6 @@ const confirmed_ts_csvdata = Papa.parse(confirmed_ts_url, {
   }
 });
 
-const death_ts_csvdata = Papa.parse(deaths_ts_url, {
-  download: true,
-  dynamicTyping: true,
-  complete:  function(results){
-    //process_data(results)
-  }
-});
-
 function process_data(results) {
   confirmed_ts_data = results.data;
   
