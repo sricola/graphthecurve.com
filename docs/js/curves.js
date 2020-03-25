@@ -1,14 +1,14 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 
-let loc = urlParams.get('loc')
-let country = ""
-let region = ""
-let last_day
-let confirmed_cases
+let loc = urlParams.get('loc');
+let country = "";
+let region = "";
+let last_day;
+let confirmed_cases;
 
-let chart_new_cases
-let chart_ts_data
+let chart_new_cases;
+let chart_ts_data;
 
 if (loc == null || loc == "") {
   country = "US"
@@ -37,21 +37,29 @@ else {
 document.getElementById("loc-region").innerHTML = loc.toString()
 
 const confirmed_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_confirmed_global.csv"
+const deaths_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_deaths_global.csv"
 
 let list_of_places = new Array;
 let confirmed_ts_data;
+let deaths_ts_data;
+
+const deaths_ts_csvdata = Papa.parse(deaths_ts_url, {
+  download: true,
+  dynamicTyping: true,
+  complete: function(results){deaths_ts_data = results.data;}
+});
 
 const confirmed_ts_csvdata = Papa.parse(confirmed_ts_url, {
   download: true,
   dynamicTyping: true,
-  complete:  function(results){
-    process_data(results)
-  }
+  complete: function(results){confirmed_ts_data = results.data;}
 });
 
-function process_data(results) {
-  confirmed_ts_data = results.data;
-  
+console.log(deaths_ts_data)
+console.log(confirmed_ts_data)
+process_data()
+
+function process_data() {
   for (i = 1; i < confirmed_ts_data.length; i++) {
     if (confirmed_ts_data[i][0] != null) {
       if (!list_of_places.includes(confirmed_ts_data[i][1]))
@@ -66,33 +74,40 @@ function process_data(results) {
   var ctx = document.getElementById('canvas_ts').getContext('2d');
   var cty = document.getElementById('canvas_new_cases').getContext('2d');
   
-  let ts = new Array;
+  let confirmed_ts = new Array;
+  let deaths_ts = new Array;
   for (i = 0; i < confirmed_ts_data.length; i++) {
     if (confirmed_ts_data[i][1] == country) {
-      if (ts.length > 0 && region == "") {
-        temp = confirmed_ts_data[i].slice(4, confirmed_ts_data[i].length)
-        for (j = 0; j < temp.length; j++) {
-          ts[j] += temp[j]
+      if (confirmed_ts.length > 0 && region == "") {
+        confirmed_temp = confirmed_ts_data[i].slice(4, confirmed_ts_data[i].length)
+        deaths_temp = deaths_ts_data[i].slice(4, deaths_ts_data[i].length)
+        for (j = 0; j < confirmed_temp.length; j++) {
+          confirmed_ts[j] += confirmed_temp[j]
+          deaths_ts[j] += deaths_temp[j]
         }
       }
       else if (region != "" && region != confirmed_ts_data[i][0])
-      continue
-      else
-      ts = confirmed_ts_data[i].slice(4, confirmed_ts_data[i].length)
-      //region = data[i][0]
+        continue
+      else{
+        confirmed_ts = confirmed_ts_data[i].slice(4, confirmed_ts_data[i].length)
+        console.log(deaths_ts_data)
+        deaths_ts = deaths_ts_data[i].slice(4, deaths_ts_data[i].length)
+      }
     }
     
   }
   
-  if (ts.length == 0){
+  if (confirmed_ts.length == 0){
     window.location.replace("error.html");
   }
   
-  leading_zeros = ts.filter(x => x = 0).length
-  ts = ts.slice(leading_zeros, ts.length)
-  last_day = ts[ts.length - 1] - ts[ts.length - 2]
+  leading_zeros = confirmed_ts.filter(x => x = 0).length
+  confirmed_ts = confirmed_ts.slice(leading_zeros, confirmed_ts.length)
+  last_day = confirmed_ts[confirmed_ts.length - 1] - confirmed_ts[confirmed_ts.length - 2]
   document.getElementById("last_day").innerHTML = last_day
-  confirmed_cases = ts[ts.length - 1]
+  confirmed_cases = confirmed_ts[confirmed_ts.length - 1]
+  deaths = deaths_ts[deaths_ts.length-1]
+  console.log(deaths)
   document.getElementById("confirmed_cases").innerHTML = confirmed_cases
   
   
@@ -109,7 +124,7 @@ function process_data(results) {
         pointBackgroundColor: "#FFFF00",
         pointRadius: 0,
         fill: true,
-        data: ts,
+        data: confirmed_ts,
       }],
     },
     options: {
@@ -166,13 +181,13 @@ function process_data(results) {
         pointRadius: 5,
         fill: true,
         data: [
-          ts[ts.length - 7] - ts[ts.length - 8],
-          ts[ts.length - 6] - ts[ts.length - 7],
-          ts[ts.length - 5] - ts[ts.length - 6],
-          ts[ts.length - 4] - ts[ts.length - 5],
-          ts[ts.length - 3] - ts[ts.length - 4],
-          ts[ts.length - 2] - ts[ts.length - 3],
-          ts[ts.length - 1] - ts[ts.length - 2]
+          confirmed_ts[confirmed_ts.length - 7] - confirmed_ts[confirmed_ts.length - 8],
+          confirmed_ts[confirmed_ts.length - 6] - confirmed_ts[confirmed_ts.length - 7],
+          confirmed_ts[confirmed_ts.length - 5] - confirmed_ts[confirmed_ts.length - 6],
+          confirmed_ts[confirmed_ts.length - 4] - confirmed_ts[confirmed_ts.length - 5],
+          confirmed_ts[confirmed_ts.length - 3] - confirmed_ts[confirmed_ts.length - 4],
+          confirmed_ts[confirmed_ts.length - 2] - confirmed_ts[confirmed_ts.length - 3],
+          confirmed_ts[confirmed_ts.length - 1] - confirmed_ts[confirmed_ts.length - 2]
         ],
       }],
     },
