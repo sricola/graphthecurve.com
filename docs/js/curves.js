@@ -51,7 +51,7 @@ const confirmed_ts_csvdata = Papa.parse(confirmed_ts_url, {
 
 function process_data(results) {
   confirmed_ts_data = results.data;
-  
+  console.log(confirmed_ts_data)
   for (i = 1; i < confirmed_ts_data.length; i++) {
     if (confirmed_ts_data[i][0] != null) {
       if (!list_of_places.includes(confirmed_ts_data[i][1]))
