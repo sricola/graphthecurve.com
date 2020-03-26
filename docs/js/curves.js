@@ -36,7 +36,7 @@ else {
 
 document.getElementById("loc-region").innerHTML = loc.toString()
 
-const confirmed_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_confirmed_global.csv"
+const confirmed_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_confirmed_global.csv.2020-03-25"
 const deaths_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_deaths_global.csv"
 
 let list_of_places = new Array;
@@ -52,14 +52,13 @@ const deaths_ts_csvdata = Papa.parse(deaths_ts_url, {
 const confirmed_ts_csvdata = Papa.parse(confirmed_ts_url, {
   download: true,
   dynamicTyping: true,
-  complete: function(results){confirmed_ts_data = results.data;}
+  complete: function(results){
+    confirmed_ts_data = results.data;
+    process_data(results.data)
+    }
 });
 
-console.log(deaths_ts_data)
-console.log(confirmed_ts_data)
-process_data()
-
-function process_data() {
+function process_data(confirmed_ts_data) {
   for (i = 1; i < confirmed_ts_data.length; i++) {
     if (confirmed_ts_data[i][0] != null) {
       if (!list_of_places.includes(confirmed_ts_data[i][1]))
@@ -75,23 +74,18 @@ function process_data() {
   var cty = document.getElementById('canvas_new_cases').getContext('2d');
   
   let confirmed_ts = new Array;
-  let deaths_ts = new Array;
   for (i = 0; i < confirmed_ts_data.length; i++) {
     if (confirmed_ts_data[i][1] == country) {
       if (confirmed_ts.length > 0 && region == "") {
         confirmed_temp = confirmed_ts_data[i].slice(4, confirmed_ts_data[i].length)
-        deaths_temp = deaths_ts_data[i].slice(4, deaths_ts_data[i].length)
         for (j = 0; j < confirmed_temp.length; j++) {
           confirmed_ts[j] += confirmed_temp[j]
-          deaths_ts[j] += deaths_temp[j]
         }
       }
       else if (region != "" && region != confirmed_ts_data[i][0])
         continue
       else{
         confirmed_ts = confirmed_ts_data[i].slice(4, confirmed_ts_data[i].length)
-        console.log(deaths_ts_data)
-        deaths_ts = deaths_ts_data[i].slice(4, deaths_ts_data[i].length)
       }
     }
     
@@ -106,8 +100,6 @@ function process_data() {
   last_day = confirmed_ts[confirmed_ts.length - 1] - confirmed_ts[confirmed_ts.length - 2]
   document.getElementById("last_day").innerHTML = last_day
   confirmed_cases = confirmed_ts[confirmed_ts.length - 1]
-  deaths = deaths_ts[deaths_ts.length-1]
-  console.log(deaths)
   document.getElementById("confirmed_cases").innerHTML = confirmed_cases
   
   
