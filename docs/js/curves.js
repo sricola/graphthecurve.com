@@ -36,7 +36,7 @@ else {
 
 document.getElementById("loc-region").innerHTML = loc.toString()
 
-const confirmed_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_confirmed_global.csv.2020-04-06"
+const confirmed_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_confirmed_global.csv.2020-04-07"
 
 let list_of_places = new Array;
 let confirmed_ts_data;
