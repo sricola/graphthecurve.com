@@ -36,13 +36,15 @@ else {
 
 document.getElementById("loc-region").innerHTML = loc.toString()
 
-const confirmed_ts_url = "https://raw.githubusercontent.com/sricola/graphthecurve.com/master/data/time_series_covid19_confirmed_global.csv"
+const confirmed_ts_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+
 
 let list_of_places = new Array;
 let confirmed_ts_data;
 
 const confirmed_ts_csvdata = Papa.parse(confirmed_ts_url, {
   download: true,
+  skipEmptyLines: true,
   dynamicTyping: true,
   complete:  function(results){
     process_data(results)
